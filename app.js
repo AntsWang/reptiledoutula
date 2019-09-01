@@ -1,5 +1,4 @@
 
-const page = 1;
 const Koa = require('koa2'),
     Router = require('koa-router'),
     cheerio = require('cheerio'),
@@ -20,21 +19,20 @@ app.use(views(path.join(__dirname + '/views'), {
 })).use(router.routes())
    .use(router.allowedMethods());
 
-router.get('/', async function(ctx,next){
-
-    
-await new Promise(function(resolve){
-    fs.mkdir('image',function(error){
-         resolve(1)
-        if(error){
-            console.log(error);
-            return false;
-        }
-        console.log('创建目录成功');
-       
+router.get('/*', async function(ctx,next){
+    let totalPages = ctx.request.url.split('/')[1]||1;
+    let imgUrls = []; 
+    await new Promise(function(resolve){
+        fs.mkdir('image',function(error){
+            resolve(1)
+            if(error){
+                console.log(error);
+                return false;
+            }
+            console.log('创建目录成功');
+        
+        })
     })
-})
-   let imgUrls = [];
    function getUrl(page){
         let url = 'http://www.doutula.com/photo/list?page='+page;
        return new Promise((resolve)=>{
@@ -53,11 +51,11 @@ await new Promise(function(resolve){
             })
        })
    }
-    for(let i = 0;i<page;i++){
+    for(let i = 0;i<totalPages;i++){
        await getUrl(i);
     }
    await ctx.render('image.pug', {
-  "imgUrls": imgUrls
+        "imgUrls": imgUrls
 });
 })
 
