@@ -1,0 +1,8 @@
+meta(name="referrer" content="no-referrer")
+meta(http-equiv="Content-Disposition" content="attachment;")
+body
+    div
+        each val, index in imgUrls
+           if val
+            a(href=val download="w3logo.jpg" target="_blank")
+                img(src=val style={width:'100px',height:'100px'})

@@ -1,0 +1,24 @@
+{
+  "name": "reptile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "images": "^3.0.2",
+    "koa-router": "^7.4.0",
+    "koa-views": "^6.2.0",
+    "koa2": "^2.0.0-alpha.7",
+    "path": "^0.12.7",
+    "pug": "^2.0.4",
+    "superagent": "^5.1.0",
+    "superagent-charset": "^1.2.0"
+  }
+}
