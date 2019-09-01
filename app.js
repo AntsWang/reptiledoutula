@@ -21,12 +21,24 @@ app.use(views(path.join(__dirname + '/views'), {
    .use(router.allowedMethods());
 
 router.get('/', async function(ctx,next){
+
+    
+await new Promise(function(resolve){
+    fs.mkdir('image',function(error){
+         resolve(1)
+        if(error){
+            console.log(error);
+            return false;
+        }
+        console.log('创建目录成功');
+       
+    })
+})
    let imgUrls = [];
    function getUrl(page){
         let url = 'http://www.doutula.com/photo/list?page='+page;
        return new Promise((resolve)=>{
             superagent.get(url).charset('utf-8').end((err,html)=>{
-                console.log(err,html)
                 let text = html.text,
                 $ = cheerio.load(text),url = '',imgName = '';
                 $('a img').each(function(i){
@@ -61,7 +73,7 @@ function saveImage(url,path) {
         req.on('end',function () {
             try{
                 fs.writeFile(path,imgData,'binary',function (err) {
-                    console.log('保存图片成功'+path)
+                    // console.log('保存图片成功'+path)
                 })
             }catch(e){
                console.log(e)
